@@ -1,0 +1,3 @@
+endpoint: https://jira-freee.atlassian.net
+authentication-method: api-token
+user: bototo@c-fo.com
