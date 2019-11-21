@@ -3,7 +3,16 @@
 set -xu
 
 issue_url="https://jira-freee.atlassian.net/browse/"
-slack_url="https://hooks.slack.com/services/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"
+slack_url="$SLACK_URL"
+
+channel="sre_"
+botname="sashikomi-follow-kun"
+icon="sashikomi"
+
+if [ -z "$slack_url" ]; then
+  echo "no notification target"
+  exit 1
+fi
 
 echo > body.txt
 
@@ -26,4 +35,4 @@ done
 echo "\`\`\`" >> body.txt
 
 body=$(cat body.txt | tr '\n' '\\' | sed 's/\\/\\n/g'| sed 's/\"/\\"/g')
-curl -s -S -X POST --data-urlencode "payload={\"text\": \"${body}\" }" ${slack_url}
+curl -s -S -X POST --data-urlencode "payload={\"channel\": \"${channel}\", \"username\": \"${botname}\", \"icon_emoji\": \"${icon}\", \"text\": \"${body}\" }" ${slack_url}
